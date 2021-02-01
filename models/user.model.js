@@ -2,8 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  username: String,
-  password: String,
+  username: {type: String, required: true, unique: true},
+  image: {type: String, default: "vrenvuerveiu"},
+  email: {type: String, required: true, unique: true},
+  password: {type: String, required: true},
+  postedStories: [{type: Schema.Types.ObjectId, ref: "Story"}],
+  following: [{type: Schema.Types.ObjectId, ref: "User"}],
+  followers: [{type: Schema.Types.ObjectId, ref: "User"}]
 }, {
   timestamps: {
     createdAt: 'created_at',

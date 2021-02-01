@@ -9,12 +9,13 @@ const User = require("../models/user.model");
 const {
   isLoggedIn,
   isNotLoggedIn,
-  validationLogin
+  validationLogin,
+  validationSignup
 } = require("../helpers/middlewares");
 
 // POST '/auth/signup'
-router.post('/signup', isNotLoggedIn, validationLogin, (req, res, next) => {
-  const { username, password } = req.body;
+router.post('/signup', isNotLoggedIn, validationSignup, (req, res, next) => {
+  const { username, email, password } = req.body;
 
   User.findOne({ username })
     .then( (foundUser) => {
@@ -28,7 +29,7 @@ router.post('/signup', isNotLoggedIn, validationLogin, (req, res, next) => {
         const salt = bcrypt.genSaltSync(saltRounds);
         const encryptedPassword = bcrypt.hashSync(password, salt);
 
-        User.create( { username, password: encryptedPassword })
+        User.create( { username, email, password: encryptedPassword })
           .then( (createdUser) => {
             // set the `req.session.currentUser` using newly created user object, to trigger creation of the session and cookie
             createdUser.password = "*";
