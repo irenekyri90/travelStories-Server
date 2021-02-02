@@ -16,6 +16,6 @@ const storySchema = new Schema( {
   },
 });
 
-const Story = mongoose.model('Story', workshopSchema);
+const Story = mongoose.model('Story', storySchema);
 
 module.exports = Story;
