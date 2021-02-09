@@ -27,6 +27,8 @@ router.get('/story', (req, res, next) => {
 //GET '/api/story/:id' => to get one story 
 
 router.get('/story/:id', (req, res) => {
+  const { id } = req.params;
+
   if ( !mongoose.Types.ObjectId.isValid(id)) {
     res
       .status(400)

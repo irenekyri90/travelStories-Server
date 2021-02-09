@@ -27,27 +27,6 @@ router.post('/comment', (req, res, next) => {
 
 
 
-//POST '/api/story'  => to post a new story
-
-// router.post('/story', (req, res, next) => {
-//   const { title, location, image, description, comments, likes, writtenBy } = req.body;
-
-//   Story.create({
-//     title,
-//     location,
-//     image,
-//     description,
-//     comments: [],
-//     likes: [],
-//     writtenBy
-//   })
-//   .then((createdStory) => {
-//     res.status(200).json(createdStory);
-//   })
-//   .catch((err) => {
-//     next(err)
-//   });
-// });
 
 //DELETE '/api/story/:id => delete story
 
@@ -85,6 +64,64 @@ router.delete('/comment/:id', (req, res) => {
       res.status(500).json(err);
     });
 });
+
+
+
+//GET all comments
+
+router.get('/comment', (req, res, next) => {
+  Comment
+    .find()
+    .then((allComments) => {
+      res.status(200).json(allComments);
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+});
+
+//GET/api/comment get one comment
+
+router.get('/comment/:id', (req, res, next) => {
+  const { id } = req.params;
+
+  if ( !mongoose.Types.ObjectId.isValid(id)) {
+    res
+      .status(400)
+      .json({ message: 'specified id is not valid' })
+      return;
+  }
+  Comment
+    .findById(id)
+    .then((foundComment) => {
+      res.status(200).json(foundComment);
+    })
+    .catch((err) => {
+      res.status(500).json(err)
+    })
+});
+
+
+
+// //GET '/api/story/:id' => to get one story 
+
+// router.get('/story/:id', (req, res) => {
+//   if ( !mongoose.Types.ObjectId.isValid(id)) {
+//     res
+//       .status(400)
+//       .json({ message: 'Specified id is not valid' })
+//     return;
+//   }
+
+//   Story
+//     .findById(id)
+//     .then((foundStory) => {
+//       res.status(200).json(foundStory);
+//     })
+//     .catch((err) => {
+//       res.status(500).json(err);
+//     })
+// });
 
 
 
