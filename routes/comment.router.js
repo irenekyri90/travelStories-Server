@@ -7,6 +7,7 @@ const {isLoggedIn} = require('./../helpers/middlewares');
 const User = require('./../models/user.model');
 
 const Comment = require('./../models/comment.model');
+const uploader = require("./../config/cloudinary-setup");
 
 
 //POST '/api/comment'  => to post a new comment

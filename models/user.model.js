@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   username: {type: String, required: true, unique: true},
-  image: {type: String, default: "vrenvuerveiu"},
+  image: {type: String},
   email: {type: String, required: true, unique: true},
   password: {type: String, required: true},
   postedStories: [{type: Schema.Types.ObjectId, ref: "Story"}],
