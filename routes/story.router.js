@@ -41,7 +41,7 @@ router.get('/stories', (req, res, next) => {
 
 
 
-//GET '/api/story/:id' => to get one story 
+//GET '/api/stories/:id' => to get one story 
 
 router.get('/stories/:id', (req, res) => {
   const { id } = req.params;
@@ -66,7 +66,7 @@ router.get('/stories/:id', (req, res) => {
 
 
 
-//POST '/api/story'  => to post a new story
+//POST '/api/stories'  => to post a new story
 
 router.post('/stories', (req, res, next) => {
   const { title, location, image, description, comments, likes, writtenBy } = req.body;
@@ -89,7 +89,7 @@ router.post('/stories', (req, res, next) => {
 });
 
 
-//PUT '/api/story/:id => edit story
+//PUT '/api/stories/:id => edit story
 
 router.put('/stories/:id', (req, res, next) => {
   const { id } = req.params;
@@ -114,7 +114,7 @@ router.put('/stories/:id', (req, res, next) => {
 
 
 
-//DELETE '/api/story/:id => delete story
+//DELETE '/api/stories/:id => delete story
 
 router.delete('/stories/:id', (req, res) => {
   const { id } = req.params;

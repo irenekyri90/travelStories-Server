@@ -64,22 +64,9 @@ router.delete('/comments/:id', (req, res) => {
 
 
 
-//GET all comments
-
-router.get('/comment', (req, res, next) => {
-  Comment
-    .find()
-    .then((allComments) => {
-      res.status(200).json(allComments);
-    })
-    .catch((err) => {
-      res.status(500).json(err);
-    });
-});
-
 //GET/api/comment get one comment
 
-router.get('/comment/:id', (req, res, next) => {
+router.get('/comments/:id', (req, res, next) => {
   const { id } = req.params;
 
   if ( !mongoose.Types.ObjectId.isValid(id)) {
