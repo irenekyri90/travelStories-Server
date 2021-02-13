@@ -2,17 +2,33 @@
 const mongoose = require('mongoose');
 const express = require("express");
 const router = express.Router();
-const {isLoggedIn} = require('./../helpers/middlewares');
+const {isLoggedIn} = require('../helpers/middlewares');
 
-const User = require('./../models/user.model');
+const User = require('../models/user.model');
 
-const Comment = require('./../models/comment.model');
-const uploader = require("./../config/cloudinary-setup");
+const Comment = require('../models/comment.model');
+const uploader = require("../config/cloudinary-setup");
 
 
-//POST '/api/comment'  => to post a new comment
+//POST '/api/comments'  => to post a new comment
 
-router.post('/comment', (req, res, next) => {
+
+//GET ALL STORIES
+
+router.get('/comments', (req, res, next) => {
+  Comment
+    .find()
+    .then((allComments) => {
+      res.status(200).json(allComments);
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    })
+});
+
+
+
+router.post('/comments', (req, res, next) => {
   const { comment, likes, writtenBy } = req.body;
 
   Comment.create({ comment,
@@ -28,29 +44,9 @@ router.post('/comment', (req, res, next) => {
 
 
 
+//DELETE '/api/comments/:id => delete comment
 
-//DELETE '/api/story/:id => delete story
-
-router.delete('/story/:id', (req, res) => {
-  const { id } = req.params;
-
-  if ( !mongoose.Types.ObjectId.isValid(id)) {
-    res.status(400).json({ message: 'specified id is not valid.' });
-    return;
-  }
-
-  Story.findByIdAndRemove(id)
-    .then(() => {
-      res.status(202).send(`Document ${id} was removed successfully.`)
-    })
-    .catch( err => {
-      res.status(500).json(err);
-    })
-});
-
-//DELETE '/api/comment/:id => delete comment
-
-router.delete('/comment/:id', (req, res) => {
+router.delete('/comments/:id', (req, res) => {
   const { id } = req.params;
 
   if ( !mongoose.Types.ObjectId.isValid(id)) {

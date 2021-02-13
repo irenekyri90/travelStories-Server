@@ -4,7 +4,7 @@ const createError = require('http-errors');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-const uploader = require("./../config/cloudinary-setup");
+const uploader = require("../config/cloudinary-setup");
 const User = require('../models/user.model');
 
 const {

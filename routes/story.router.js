@@ -2,12 +2,12 @@
 const mongoose = require('mongoose');
 const express = require("express");
 const router = express.Router();
-const {isLoggedIn} = require('./../helpers/middlewares');
+const {isLoggedIn} = require('../helpers/middlewares');
 
-const uploader = require("./../config/cloudinary-setup");
+const uploader = require("../config/cloudinary-setup");
 
-const User = require('./../models/user.model');
-const Story = require('./../models/story.model');
+const User = require('../models/user.model');
+const Story = require('../models/story.model');
 
 
 // include CLOUDINARY:
@@ -28,7 +28,7 @@ router.post("/upload", uploader.single("image"), (req, res, next) => {
 
 //GET ALL STORIES
 
-router.get('/story', (req, res, next) => {
+router.get('/stories', (req, res, next) => {
   Story
     .find()
     .then((allTheStories) => {
@@ -43,7 +43,7 @@ router.get('/story', (req, res, next) => {
 
 //GET '/api/story/:id' => to get one story 
 
-router.get('/story/:id', (req, res) => {
+router.get('/stories/:id', (req, res) => {
   const { id } = req.params;
 
   if ( !mongoose.Types.ObjectId.isValid(id)) {
@@ -68,7 +68,7 @@ router.get('/story/:id', (req, res) => {
 
 //POST '/api/story'  => to post a new story
 
-router.post('/story', (req, res, next) => {
+router.post('/stories', (req, res, next) => {
   const { title, location, image, description, comments, likes, writtenBy } = req.body;
 
   Story.create({
@@ -91,7 +91,7 @@ router.post('/story', (req, res, next) => {
 
 //PUT '/api/story/:id => edit story
 
-router.put('/story/:id', (req, res, next) => {
+router.put('/stories/:id', (req, res, next) => {
   const { id } = req.params;
   const { title, location, image, description, comments, likes, writtenBy } = req.body;
 
@@ -116,7 +116,7 @@ router.put('/story/:id', (req, res, next) => {
 
 //DELETE '/api/story/:id => delete story
 
-router.delete('/story/:id', (req, res) => {
+router.delete('/stories/:id', (req, res) => {
   const { id } = req.params;
 
   if ( !mongoose.Types.ObjectId.isValid(id)) {
