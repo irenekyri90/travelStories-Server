@@ -68,8 +68,9 @@ router.get('/stories/:id', (req, res) => {
 
 //POST '/api/stories'  => to post a new story
 
-router.post('/stories', (req, res, next) => {
-  const { title, location, image, description, comments, likes, writtenBy } = req.body;
+router.post('/stories', isLoggedIn, (req, res, next) => {
+  const { title, location, image, description, comments, likes } = req.body;
+  const writtenBy = req.body.writtenBy;
 
   Story.create({
     title,
@@ -78,7 +79,7 @@ router.post('/stories', (req, res, next) => {
     description,
     comments: [],
     likes: [],
-    writtenBy
+    writtenBy: writtenBy
   })
   .then((createdStory) => {
     res.status(200).json(createdStory);

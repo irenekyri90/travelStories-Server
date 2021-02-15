@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const storySchema = new Schema( {
   title: {type: String, required: true},
   location: {type: String},
-  image: {type: String, required: true},
+  image: {type: String},
   description: {type: String, required: true},
   comments: [{type: Schema.Types.ObjectId, ref: "Comments"}],
   likes: [{type: Schema.Types.ObjectId, ref: "User"}],
